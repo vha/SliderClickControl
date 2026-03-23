@@ -1,0 +1,1 @@
+Changes slider click behavior to move incrementally toward the clicked position instead of jumping instantly
