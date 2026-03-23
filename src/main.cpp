@@ -5,6 +5,8 @@
 
 static modloader::ModInfo modInfo{MOD_ID, VERSION, 0};
 
+constexpr float kClickStepFraction = 0.10f;
+
 MAKE_HOOK_MATCH(TextSlider_UpdateDrag, &HMUI::TextSlider::UpdateDrag,
     void, HMUI::TextSlider* self,
     ::UnityEngine::EventSystems::PointerEventData* eventData) {
@@ -16,8 +18,8 @@ MAKE_HOOK_MATCH(TextSlider_UpdateDrag, &HMUI::TextSlider::UpdateDrag,
     float targetValue = self->get_normalizedValue();
 
     if (currentValue != targetValue) {
-        float newValue = currentValue + 0.10f * (targetValue - currentValue);
-        self->set_normalizedValue(newValue);
+        float newValue = currentValue + kClickStepFraction * (targetValue - currentValue);
+        self->SetNormalizedValue(newValue, true);
     }
 }
 
